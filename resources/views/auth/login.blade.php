@@ -1,11 +1,13 @@
-<x-guest-layout>
-    <x-authentication-card>
-        <x-slot name="logo">
-            <x-authentication-card-logo />
-        </x-slot>
+@extends('layouts.auth')
+@section('title', 'Login')
+@section('content')
 
-        <x-validation-errors class="mb-4" />
-
+<div class="min-h-screen flex flex-col items-center justify-center">
+    <div class="mb-6 flex items-center gap-4">
+        <img src="{{ asset('image/icon/icon.png') }}" alt="App Logo" class="w-32 h-auto">
+    </div>
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-200">
+        
         @session('status')
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ $value }}
@@ -44,5 +46,8 @@
                 </x-button>
             </div>
         </form>
-    </x-authentication-card>
-</x-guest-layout>
+
+    </div>
+</div>
+
+@endsection

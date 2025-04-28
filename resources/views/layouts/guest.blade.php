@@ -52,38 +52,8 @@
 
 <div class="relative min-h-screen">
     @if (isset($header))
-        <header id="main-header" class="sticky top-0 z-50 backdrop-blur-md bg-white/30 shadow-md flex flex-row items-center justify-between px-4 py-2">
-            <div class="flex lg:justify-center items-center pl-4">
-                <div class="flex lg:justify-center items-center pl-4">
-                    <img class="h-[60px]" src="{{ asset('image/icon/polindra.png') }}" alt="">
-                    <img class="h-[100px]" src="{{ asset('image/icon/icon.png') }}" alt="">
-                </div>
-                <div class="flex flex-col leading-none space-y-0">
-                    <h1 class="m-0">PEMIRA</h1>
-                    <h5 class="m-0">Politeknik Negeri Indramayu</h5>
-                </div>
-            </div>
+    @include('layouts.header')
 
-            <div class="hidden lg:flex flex-1 justify-center items-center">
-               
-            </div>
-
-            <div class="flex items-center space-x-3 ml-auto">
-                @auth
-                    <img 
-                        src="{{ Auth::user()->avatar_url ?? asset('image/icon/user.png') }}" 
-                        alt="User Avatar" 
-                        class="h-10 w-10 rounded-full object-cover border border-gray-300"
-                    >
-                    <span class="font-medium text-gray-700">{{ Auth::user()->name }}</span>
-                @endauth
-
-                @guest
-                    <a href="{{ route('login') }}" class="permira-button">Login</a>
-                    <a href="{{ route('register') }}" class="permira-button">Register</a>
-                @endguest
-            </div>
-        </header>
     @endif
 
     <!-- Page Content -->

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Election extends Model
+class Elections extends Model
 {
     use HasFactory;
 
@@ -28,8 +28,9 @@ class Election extends Model
     /**
      * Get the candidate teams for the election.
      */
-    public function candidatesTeams()
-    {
-        return $this->hasMany(CandidatesTeam::class, 'events_id');
-    }
+    public function candidates()
+{
+    return $this->hasMany(CandidatesTeam::class, 'events_id');
+}
+
 }

@@ -15,6 +15,7 @@ class CandidatesTeam extends Model
         'slogan',
         'vision',
         'mission',
+        'picture'
     ];
 
     /**
@@ -22,7 +23,11 @@ class CandidatesTeam extends Model
      */
     public function election()
 {
-    return $this->belongsTo(Election::class, 'events_id');
+    return $this->belongsTo(Elections::class, 'events_id');
+}
+public function members()
+{
+    return $this->hasMany(CandidatesTeamMember::class, 'candidates_team_id');
 }
 
 }
