@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>PEMIRA - @yield('title')</title>
-
+    <link rel="icon" href="{{ asset('image/icon/icon.png') }}" type="image/x-icon">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -53,7 +53,36 @@
         #main-header {
             transition: transform 0.3s ease-in-out;
         }
-        
+#nav a.active {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
+
+#nav a.inactive {
+    border-color: transparent;
+    color: #4b5563; /* Gray */
+}
+
+#nav a.inactive:hover {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
+/* Sembunyikan scrollbar di seluruh halaman */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Tetap izinkan scroll, tapi tanpa scrollbar */
+html, body {
+  overflow: auto;
+}
+
+
     </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
@@ -66,7 +95,7 @@
     @endif
 
     <!-- Page Content -->
-    <main class="overflow-x-hidden">
+    <main class="overflow-hidden">
         {{ $slot }}
     </main>
 </div>
@@ -109,25 +138,32 @@
 
 @stack('modals')
 @livewireScripts
-
 <script>
-    let lastScrollTop = 0;
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;   
+let ticking = false;
     const header = document.getElementById("main-header");
 
-    window.addEventListener("scroll", function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    function handleScroll() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        if (scrollTop > lastScrollTop+10) {
+        if (scrollTop > lastScrollTop + 20) {
             // Scroll ke bawah
             header.style.transform = "translateY(-100%)";
-        } else {
+        } else if (scrollTop < lastScrollTop - 20) {
             // Scroll ke atas
             header.style.transform = "translateY(0)";
         }
 
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Untuk Safari
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        ticking = false;
+    }
+
+    window.addEventListener("scroll", function () {
+        if (!ticking) {
+            window.requestAnimationFrame(handleScroll);
+            ticking = true;
+        }
     });
 </script>
-
 </body>
 </html>

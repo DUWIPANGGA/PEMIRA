@@ -63,6 +63,23 @@
         #main-header {
             transition: transform 0.3s ease-in-out;
         }
+        #main-header {
+            transition: transform 0.3s ease-in-out;
+        }
+#nav a.active {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
+
+#nav a.inactive {
+    border-color: transparent;
+    color: #4b5563; /* Gray */
+}
+
+#nav a.inactive:hover {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
     </style>
 </head>
 
@@ -163,25 +180,34 @@
 
     @stack('modals')
     @livewireScripts
-
     <script>
         let lastScrollTop = 0;
+        let ticking = false;
         const header = document.getElementById("main-header");
-
-        window.addEventListener("scroll", function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            if (scrollTop > lastScrollTop + 10) {
+    
+        function handleScroll() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+            if (scrollTop > lastScrollTop + 20) {
                 // Scroll ke bawah
                 header.style.transform = "translateY(-100%)";
-            } else {
+            } else if (scrollTop < lastScrollTop - 20) {
                 // Scroll ke atas
                 header.style.transform = "translateY(0)";
             }
-
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Untuk Safari
+    
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            ticking = false;
+        }
+    
+        window.addEventListener("scroll", function () {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScroll);
+                ticking = true;
+            }
         });
     </script>
+    
     @yield('script')
 </body>
 

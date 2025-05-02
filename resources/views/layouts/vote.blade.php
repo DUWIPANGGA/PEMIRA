@@ -8,7 +8,6 @@
 
     <title>PEMIRA - @yield('title')</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
@@ -54,7 +53,23 @@
         #main-header {
             transition: transform 0.3s ease-in-out;
         }
-        
+        #main-header {
+            transition: transform 0.3s ease-in-out;
+        }
+#nav a.active {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
+
+#nav a.inactive {
+    border-color: transparent;
+    color: #4b5563; /* Gray */
+}
+
+#nav a.inactive:hover {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
     </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
@@ -66,24 +81,19 @@
 
 
     @if(session('success') || $errors->any())
-    <!-- Modal Background -->
     <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fade-in">
         
-        <!-- Modal Container -->
         <div class="relative bg-[#A61616] border-4 border-[#FF6C6C] rounded-2xl p-6 w-11/12 max-w-md text-white shadow-2xl animate-scale-in flex flex-col items-center">
             
 
-            <!-- Icon Success or Error -->
             @if(session('success'))
             <h1>YEYY..!!!</h1>
-            <!-- App Logo (40% of modal) -->
             <div class="w-full flex justify-center">
                 <img src="{{ asset('image/assets/warning.png') }}" alt="App Logo" class="w-3/5 h-auto animate-pulse mb-4">
             </div>
                 <h2 class="text-2xl font-bold mb-2 text-center">Terimakasih sudah ikut serta demokrasi ini ya!</h2>
             @elseif($errors->any())
             <h1>OOPS..!!!</h1>
-            <!-- App Logo (40% of modal) -->
             <div class="w-full flex justify-center">
                 <img src="{{ asset('image/assets/warning.png') }}" alt="App Logo" class="w-3/5 h-auto animate-pulse mb-4">
             </div>
@@ -95,7 +105,6 @@
                 </ul>
             @endif
 
-            <!-- Close Button -->
             <button onclick="closeModal()" class="absolute top-3 right-3 text-white hover:text-gray-200 text-2xl">
                 &times;
             </button>
@@ -153,7 +162,7 @@
                     
                     @foreach ($pemilu as $item)
                         <a href="{{ route('voting.show',$item->name) }}">
-                            <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded">{{ $item->name }}</li>
+                            <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded"><b>{{ $item->name }}</b></li>
                         </a>
                     @endforeach
                 </ul>

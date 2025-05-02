@@ -1,3 +1,4 @@
+@section('title', 'dashboard')
 <x-app-layout>
     <x-slot name="header">
         {{-- <div class="flex flex-row gap-4">

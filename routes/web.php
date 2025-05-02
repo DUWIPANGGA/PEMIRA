@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ElectionsController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('dashboard');
+})->name('home');
 
 Route::get('profile',function(){
     return view('profile.index');
@@ -17,6 +18,7 @@ Route::get('profile',function(){
 Route::get('vote', [VoteController::class,'main'])->name('voting');
 Route::get('vote/{name}', [VoteController::class,'show'])->name('voting.show');
 Route::post ('vote/{name}', [VoteController::class,'create'])->name('voting.create');
+Route::resource('hasil', MonitoringController::class);
 
 Route::get('/hasil', function () {
     return view('monitoring');

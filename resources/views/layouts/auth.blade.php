@@ -63,6 +63,23 @@
         #main-header {
             transition: transform 0.3s ease-in-out;
         }
+        #main-header {
+            transition: transform 0.3s ease-in-out;
+        }
+#nav a.active {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
+
+#nav a.inactive {
+    border-color: transparent;
+    color: #4b5563; /* Gray */
+}
+
+#nav a.inactive:hover {
+    border-color: #F21313; /* Merah */
+    color: #F21313; /* Merah */
+}
     </style>
 </head>
 
