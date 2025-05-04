@@ -1,7 +1,8 @@
 @extends('layouts.vote')
 @section('title', 'Vote ')
+
 @section('sidebar')
-<aside class="w-1/4 mr-4">
+<aside class="w-1/4 mr-4" data-aos="fade-right">
     <a href="{{ route('voting') }}" class="block bg-white border border-black rounded hover:bg-purple-100 p-2">
         <div class="flex items-center">
             <img src="{{ asset('image/icon/logo.png') }}" alt="App Logo" class="w-10 h-10 mr-3">
@@ -10,24 +11,27 @@
     </a>
     
     <ul class="bg-purple-100 p-2 rounded space-y-2">
-        
         @foreach ($pemilu as $item)
             <a href="{{ route('voting.show',$item->name) }}">
-                <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded"><b>{{ $item->name }}</b></li>
+                <li class="hover:bg-purple-300 hover:scale-105 transform transition-transform duration-150 cursor-pointer px-2 py-1 rounded">
+                    <b>{{ $item->name }}</b>
+                </li>
             </a>
         @endforeach
     </ul>
 </aside>
 @endsection
+
 @section('content')
 <div id="confirmationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div
-        class="relative bg-[#A61616] border-4 border-[#FF6C6C] rounded-2xl p-6 w-11/12 max-w-md text-white shadow-2xl animate-scale-in flex flex-col items-center">
+        class="relative bg-[#A61616] border-4 border-[#FF6C6C] rounded-2xl p-6 w-11/12 max-w-md text-white shadow-2xl flex flex-col items-center"
+        data-aos="zoom-in"
+    >
         <div class="w-full flex justify-center">
             <img src="{{ asset('image/assets/warning.png') }}" alt="App Logo" class="w-3/5 h-auto animate-pulse mb-4">
         </div>
         <div class="flex flex-col items-center">
-
             <h1 class="">Konfirmasi Pilihanmu</h1>
             <p id="candidateName" class="text-center mb-6">
                 Apakah kamu yakin ingin memilih kandidat ini?
@@ -49,23 +53,24 @@
         </div>
     </div>
 </div>
-    @if($teams->candidates && $teams->candidates->isNotEmpty())
-        @foreach ($teams->candidates as $team)
-        <div class="border border-gray-300 p-4 rounded-lg flex items-start bg-gray-50 shadow">
+
+@if($teams->candidates && $teams->candidates->isNotEmpty())
+    @foreach ($teams->candidates as $team)
+        <div class="border border-gray-300 p-4 rounded-lg flex items-start bg-gray-50 shadow mb-4"
+            data-aos="fade-up"
+        >
             <div class="mr-4">
                 <div class="h-24 w-24 flex items-center justify-center rounded">
-                    <!-- Menampilkan foto tim, jika ada -->
                     <img src="{{ asset('storage/' . $team->picture) }}" alt="{{ $team->name }} Picture"
                         class="h-full w-full object-cover rounded">
                 </div>
             </div>
             <div class="flex-1">
-                <h3 class="text-lg font-bold">{{ $team->name }}</h3> <!-- Menampilkan nomor urut -->
-
+                <h3 class="text-lg font-bold">{{ $team->name }}</h3>
                 @foreach ($team->members as $member)
                     <p class="text-xl font-bold">{{ $member->user->name ?? 'Tanpa Nama' }}</p>
                     <div class="text-sm text-gray-600 mb-2">
-                        {{ $member->user->program_study ?? 'Tanpa Program Studi' }} <!-- Menampilkan program studi -->
+                        {{ $member->user->program_study ?? 'Tanpa Program Studi' }}
                     </div>
                 @endforeach
 
@@ -86,34 +91,37 @@
                 <form action="{{ route('voting.create', $team->id) }}" method="POST">
                     @method('POST')
                     @csrf
-
-                    <button type="button" onclick="openConfirmationModal('{{ $team->id }}', '{{ $team->name }}')"
-                        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded shadow">
+                    <button type="button" 
+                        onclick="openConfirmationModal('{{ $team->id }}', '{{ $team->name }}')"
+                        class="bg-red-600 hover:bg-red-700 hover:scale-105 transform transition-transform duration-200 text-white font-bold py-2 px-4 rounded shadow">
                         VOTE
                     </button>
                 </form>
             </div>
         </div>
     @endforeach
-    @else
-    <div class="border border-gray-300 p-4 rounded-lg flex justify-center items-center bg-gray-50 shadow">
+@else
+    <div class="border border-gray-300 p-4 rounded-lg flex justify-center items-center bg-gray-50 shadow" data-aos="fade-up">
         <div class="w-full flex justify-center">
             <img src="{{ asset('image/assets/warning.png') }}" alt="App Logo" class="w-3/5 h-auto animate-pulse mb-4">
         </div>
     </div>
-    @endif
+@endif
 @endsection
+
 @section('script')
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
+        AOS.init({
+            duration: 600,
+            once: true
+        });
+
         function openConfirmationModal(teamId, teamName) {
-            // Set form action dynamically
             const form = document.getElementById('confirmVoteForm');
-            form.action = `/vote/${teamId}`; // Sesuai route voting.create kamu
-
-            // Set candidate name (optional kalau mau tampilkan)
+            form.action = `/vote/${teamId}`;
             document.getElementById('candidateName').innerText = `Yakin mau pilih ${teamName}?`;
-
-            // Tampilkan modal
             document.getElementById('confirmationModal').classList.remove('hidden');
         }
 
@@ -122,22 +130,6 @@
         }
     </script>
 
-    <!-- Scale-in animation style -->
-    <style>
-        @keyframes scale-in {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .animate-scale-in {
-            animation: scale-in 0.3s ease-out forwards;
-        }
-    </style>
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 @endsection

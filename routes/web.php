@@ -1,15 +1,37 @@
 <?php
 
-use App\Http\Controllers\ElectionsController;
-use App\Http\Controllers\MonitoringController;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Elections;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
-use App\Models\User;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ElectionsController;
+use App\Http\Controllers\MonitoringController;
 
 Route::get('/', function () {
-    return view('welcome');
+    $elections = Elections::all();
+
+    $events = [];
+
+    foreach ($elections as $election) {
+        $start = Carbon::parse($election->start_date);
+        $end = Carbon::parse($election->end_date);
+
+        for ($date = $start->copy(); $date->lte($end); $date->addDay()) {
+            $key = $date->format('Y-m-d');
+            $events[$key][] = [
+                'title' => $election->name,
+                'description' => $election->description,
+            ];
+        }
+    }
+// dd($events);
+    return view('welcome',[
+        'events' => json_encode($events)
+    ]);
+
 })->name('home');
 
 Route::get('profile',function(){

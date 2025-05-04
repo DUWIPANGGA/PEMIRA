@@ -81,7 +81,17 @@
 html, body {
   overflow: auto;
 }
-
+.has-event {
+  background-color: #fce4ec;
+  border: 2px solid #ab47bc;
+}
+.event-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ab47bc;
+  border-radius: 50%;
+  margin-top: 4px;
+}
 
     </style>
 </head>
