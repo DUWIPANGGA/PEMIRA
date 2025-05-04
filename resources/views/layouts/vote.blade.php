@@ -150,23 +150,7 @@
 
     <div class="py-6 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex">
-            <aside class="w-1/4 mr-4">
-                <a href="{{ route('voting') }}" class="block bg-white border border-black rounded hover:bg-purple-100 p-2">
-                    <div class="flex items-center">
-                        <img src="{{ asset('image/icon/logo.png') }}" alt="App Logo" class="w-10 h-10 mr-3">
-                        <span class="text-gray-600 font-semibold">Mau Vote Siapa?</span>
-                    </div>
-                </a>
-                
-                <ul class="bg-purple-100 p-2 rounded space-y-2">
-                    
-                    @foreach ($pemilu as $item)
-                        <a href="{{ route('voting.show',$item->name) }}">
-                            <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded"><b>{{ $item->name }}</b></li>
-                        </a>
-                    @endforeach
-                </ul>
-            </aside>
+            @yield('sidebar')
             <main class="w-3/4 space-y-6">
                 @yield('content')
             </main>            

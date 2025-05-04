@@ -108,26 +108,26 @@
 
 
         <!-- Page Content -->
-        <main class="overflow-x-hidden">
+        <main class="overflow-x-hidden w-full pt-0 bg-purple-400">
             <div class="py-10 bg-white min-h-screen">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex gap-6">
-                    <!-- Sidebar -->
-                    <aside class="w-1/4">
+                <div class="max-w-7xl w-full mx-auto flex gap-6 px-0">
+                    <aside class="w-1/4 bg-purple-400">
                         <ul class="bg-purple-100 p-4 rounded space-y-2 font-semibold text-purple-800">
                             <a href="{{ route('pemilu.index') }}">
-
+    
                                 <li class="hover:bg-purple-300 cursor-pointer px-3 py-2 rounded transition">
                                     Pemilu
                                 </li>
                             </a>
                             <a href="{{ route('users.index') }}">
-
+    
                                 <li class="hover:bg-purple-300 cursor-pointer px-3 py-2 rounded transition">
                                     User
                                 </li>
                             </a>
                         </ul>
                     </aside>
+                    <!-- Sidebar -->
                     <!-- Formulir Card -->
                     <main class="w-3/4">
                         @yield('content')

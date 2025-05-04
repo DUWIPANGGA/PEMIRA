@@ -29,5 +29,9 @@ public function members()
 {
     return $this->hasMany(CandidatesTeamMember::class, 'candidates_team_id');
 }
+public function votes()
+{
+    return $this->hasMany(Votes::class, 'candidates_team_id');
+}
 
 }

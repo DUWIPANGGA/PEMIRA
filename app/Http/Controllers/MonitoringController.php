@@ -36,12 +36,20 @@ class MonitoringController extends Controller
      * Display the specified resource.
      */
     public function show(string $name)
-    {
-        $pemilu = Elections::with('candidates.members.user')->get();
-        $teams = Elections::with('candidates.members.user')->where('name',$name)->first();
-        $hasil = Votes::where()->get();
-        return view('vote.show', compact(['pemilu','teams']));
-    }
+{
+    $pemilu = Elections::with('candidates.members.user')->get();
+    $teams = Elections::with(['candidates' => function ($query) {
+        $query->with(['members.user'])->withCount('votes');
+    }])->where('name', $name)->first();
+    $chartData = $teams->candidates->map(function ($candidate) {
+        return [
+            'name' => $candidate->name,
+            'votes' => $candidate->votes_count
+        ];
+    });
+    return view('monitoring.show', compact(['pemilu', 'teams','chartData']));
+}
+
 
     /**
      * Show the form for editing the specified resource.
