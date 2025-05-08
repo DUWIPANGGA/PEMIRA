@@ -33,28 +33,47 @@ Route::get('/', function () {
     ]);
 
 })->name('home');
-
-Route::get('profile',function(){
-    return view('profile.index');
-})->name('profile');
+Route::middleware('auth')->group(function () {
+    Route::get('profile',function(){
+        return view('profile.index');
+    })->name('profile');
+    
+});
+Route::middleware('auth')->group(function () {
+    Route::resource('pemilu',ElectionsController::class);
+    Route::resource('candidate',TeamController::class);
+    Route::resource('users',UserController::class);
+});
 Route::get('vote', [VoteController::class,'main'])->name('voting');
 Route::get('vote/{name}', [VoteController::class,'show'])->name('voting.show');
 Route::post ('vote/{name}', [VoteController::class,'create'])->name('voting.create');
 Route::resource('hasil', MonitoringController::class);
 
-Route::get('/hasil', function () {
-    return view('monitoring');
-})->name('hasil');
-Route::resource('pemilu',ElectionsController::class);
-Route::resource('candidate',TeamController::class);
-Route::resource('users',UserController::class);
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $elections = Elections::all();
+
+    $events = [];
+
+    foreach ($elections as $election) {
+        $start = Carbon::parse($election->start_date);
+        $end = Carbon::parse($election->end_date);
+
+        for ($date = $start->copy(); $date->lte($end); $date->addDay()) {
+            $key = $date->format('Y-m-d');
+            $events[$key][] = [
+                'title' => $election->name,
+                'description' => $election->description,
+            ];
+        }
+    }
+        return view('dashboard',[
+            'events' => json_encode($events)
+        ]);
     })->name('dashboard');
 });
 

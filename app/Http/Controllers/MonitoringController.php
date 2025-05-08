@@ -13,7 +13,8 @@ class MonitoringController extends Controller
      */
     public function index()
     {
-        //
+        $pemilu = Elections::with('candidates.members.user')->get();
+        return view('monitoring.index',compact('pemilu'));
     }
 
     /**

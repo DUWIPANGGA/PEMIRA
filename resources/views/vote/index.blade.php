@@ -1,7 +1,7 @@
 @extends('layouts.vote')
 @section('title', 'Vote')
 @section('sidebar')
-<aside class="w-1/4 mr-4">
+<aside class="w-1/4 mr-4" data-aos="fade-right">
     <a href="{{ route('voting') }}" class="block bg-white border border-black rounded hover:bg-purple-100 p-2">
         <div class="flex items-center">
             <img src="{{ asset('image/icon/logo.png') }}" alt="App Logo" class="w-10 h-10 mr-3">
@@ -13,7 +13,7 @@
         
         @foreach ($pemilu as $item)
             <a href="{{ route('voting.show',$item->name) }}">
-                <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded"><b>{{ $item->name }}</b></li>
+                <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded hover:translate-x-1 transition-transform duration-150 "><b>{{ $item->name }}</b></li>
             </a>
         @endforeach
     </ul>
@@ -21,8 +21,8 @@
 @endsection
 @section('content')
 
-<div class="min-h-screen bg-[#A61616] flex items-center justify-center">
-    <div class="w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg flex flex-col items-center justify-center relative">
+<div class="min-h-screen flex items-center justify-center" data-aos="fade-up">
+    <div class="w-full max-w-4xl bg-white p-8 rounded-lg shadow-lg flex flex-col items-center justify-center relative border-4 border-red-500">
 
         <!-- Logo and Header -->
         <div class="w-full flex justify-center mb-6">
@@ -32,21 +32,13 @@
         
         <!-- Voting Options -->
         <div class="w-full flex flex-col items-center justify-center gap-8">
-            @foreach($pemilu as $option)
-            <div class="w-full bg-[#F9F9F9] p-8 rounded-lg shadow-xl border-4 border-[#FF6C6C]">
-                <div class="flex flex-col items-center">
-                    <img src="{{ asset($option->logo_path) }}" alt="Logo" class="w-32 h-auto mb-4">
-                    <h3 class="text-xl font-semibold text-[#A61616] mb-4">{{ $option->name }}</h3>
-                    <p class="text-lg text-center text-gray-700 mb-6">{{ $option->description }}</p>
-
-                    <!-- Vote Button (for confirmation) -->
-                    <button onclick="openConfirmationModal({{ $option->id }}, '{{ $option->name }}')" 
-                        class="bg-[#A61616] hover:bg-[#FF6C6C] text-white font-semibold py-3 px-8 rounded-lg transition duration-300 ease-in-out transform hover:scale-105">
-                        Pilih {{ $option->name }}
-                    </button>
-                </div>
-            </div>
-            @endforeach
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est facilis sequi deserunt alias, illum aut, saepe consequuntur voluptates sint neque sapiente dolore a odit voluptatibus dolores? Totam quia ab aut!
+           Consectetur vel aut ex error incidunt dolor minus blanditiis iure esse aperiam quia nostrum amet culpa libero aliquid, dolores dolore! Vitae eveniet repellendus deserunt corrupti animi dicta nemo natus ut?
+           Animi numquam, id modi consectetur obcaecati dolores eligendi sit dolorum blanditiis iure, eos incidunt repellat quos totam soluta quis deserunt fugit laudantium reprehenderit hic tempore eaque temporibus quo earum. Voluptatem.
+<br>
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto, obcaecati voluptate voluptas quam quidem doloribus rem vel unde architecto consequuntur tempore ipsam consequatur, a molestiae? Eos amet expedita totam corrupti.
+           Autem illum hic eos nam nemo. Veritatis laudantium porro cumque commodi officia velit saepe optio harum incidunt suscipit natus inventore, reiciendis pariatur quidem explicabo sed hic ut debitis quasi quis!
+           Repellat illum recusandae sunt tempore, ex maxime! Voluptatum aperiam animi dolor, est corporis aliquid necessitatibus ipsa dignissimos libero deleniti adipisci expedita quis itaque ad iste quisquam sapiente iure consequuntur ducimus!
         </div>
     </div>
 </div>
@@ -80,6 +72,15 @@
 @endsection
 
 @section('script')
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        easing: 'ease-in-out'
+    });
+</script>
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <script>
     function openConfirmationModal(teamId, teamName) {
         // Set form action dynamically

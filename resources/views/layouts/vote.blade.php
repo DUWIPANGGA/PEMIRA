@@ -70,6 +70,15 @@
     border-color: #F21313; /* Merah */
     color: #F21313; /* Merah */
 }
+@media (max-width: 1024px) {
+      #mobile {
+        display: none;
+      }
+
+      #mobile {
+        display: block;
+      }
+    }
     </style>
 </head>
 <body class="font-sans antialiased overflow-x-hidden">
@@ -145,6 +154,7 @@
       .animate-shake {
         animation: shake 0.5s ease;
       }
+
     </style>
 @endif
 

@@ -12,7 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Register middleware aliases
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\auth::class,
+            'admin' => \App\Http\Middleware\admin::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

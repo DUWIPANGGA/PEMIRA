@@ -13,7 +13,7 @@
     <ul class="bg-purple-100 p-2 rounded space-y-2">
         @foreach ($pemilu as $item)
             <a href="{{ route('hasil.show',$item->name) }}">
-                <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded">
+                <li class="hover:bg-purple-300 cursor-pointer px-2 py-1 rounded hover:translate-x-1 transition-transform duration-150">
                     <b>{{ $item->name }}</b>
                 </li>
             </a>

@@ -80,6 +80,7 @@
     border-color: #F21313; /* Merah */
     color: #F21313; /* Merah */
 }
+
     </style>
 </head>
 

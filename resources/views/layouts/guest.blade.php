@@ -44,6 +44,7 @@
         #main-header {
             transition: transform 0.3s ease-in-out;
         }
+        
     </style>
 </head>
 <body class="font-sans antialiased">
