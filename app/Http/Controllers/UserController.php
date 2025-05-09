@@ -5,9 +5,55 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    public function showImportForm()
+    {
+        return view('users.import');
+    }
+    public function processImport(Request $request)
+{
+    $request->validate([
+        'csv_file' => 'required|file|mimes:csv,txt|max:10240'
+    ]);
+
+    $file = $request->file('csv_file');
+    $path = $file->getRealPath();
+
+    $csv = \League\Csv\Reader::createFromPath($path, 'r');
+    $csv->setHeaderOffset(0); // Set baris pertama sebagai header
+
+    $successCount = 0;
+    $failedRows = [];
+
+    foreach ($csv->getRecords() as $i => $record) {
+        try {
+            $user = User::create([
+                'name' => $record['name'],
+                'email' => $record['email'],
+                'NIM' => $record['NIM'],
+                'prodi' => $record['prodi'],
+                'password' => Hash::make($record['password']),
+                'email_verified_at' => now(),
+            ]);
+            $successCount++;
+        } catch (\Exception $e) {
+            $failedRows[] = [
+                'row' => $i + 2,
+                'data' => $record,
+                'errors' => [$e->getMessage()]
+            ];
+        }
+    }
+
+    return redirect()->back()->with([
+        'success' => "Import selesai! $successCount user berhasil diimport.",
+        'failedRows' => $failedRows,
+        'totalFailed' => count($failedRows)
+    ]);
+}
     /**
      * Display a listing of the resource.
      */

@@ -44,6 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('candidate',TeamController::class);
     Route::resource('users',UserController::class);
 });
+Route::get('import', [UserController::class, 'showImportForm'])->name('users.import.form');
+Route::post('import', [UserController::class, 'processImport'])->name('users.import.process');
 Route::get('vote', [VoteController::class,'main'])->name('voting');
 Route::get('vote/{name}', [VoteController::class,'show'])->name('voting.show');
 Route::post ('vote/{name}', [VoteController::class,'create'])->name('voting.create');

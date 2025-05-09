@@ -39,6 +39,23 @@
         </div>
 
         <div class="mb-4">
+            <label for="prodi" class="block text-sm font-medium text-gray-700">Program Studi</label>
+            <select id="prodi" name="prodi" required
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-indigo-200">
+                <option value="Teknologi Rekayasa Elektro-Medis (TREM)">Teknologi Rekayasa Elektro-Medis (TREM)</option>
+                <option value="Teknologi Rekayasa Komputer (TRK)">Teknologi Rekayasa Komputer (TRK)</option>
+                <option value="Teknologi Rekayasa Instrumentasi dan Kontrol (TRIK)">Teknologi Rekayasa Instrumentasi dan Kontrol (TRIK)</option>
+                <option value="Sistem Informasi Kota Cerdas (SIKC)">Sistem Informasi Kota Cerdas (SIKC)</option>
+                <option value="Rekayasa Perangkat Lunak (RPL)">Rekayasa Perangkat Lunak (RPL)</option>
+                <option value="Perancangan Manufaktur (PM)">Perancangan Manufaktur (PM)</option>
+                <option value="Teknik Pendingin dan Tata Udara">Teknik Pendingin dan Tata Udara (TPTU)</option>
+                <option value="Teknik Informatika (TI)">Teknik Informatika (TI)</option>
+                <option value="Teknik Mesin (TM)">Teknik Mesin (TM)</option>
+                <option value="Keperawatan">Keperawatan</option>
+            </select>
+        </div>
+
+        <div class="mb-4">
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <input id="password" name="password" type="password" required autocomplete="new-password"
                 class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-indigo-200" />

@@ -23,11 +23,12 @@ return new class extends Migration
                 'Sistem Informasi Kota Cerdas (SIKC)', 
                 'Rekayasa Perangkat Lunak (RPL)', 
                 'Perancangan Manufaktur (PM)', 
-                'Teknik Pendingin dan Tata Udara', 
+                'Teknik Pendingin dan Tata Udara (TPTU)', 
                 'Teknik Informatika (TI)', 
                 'Teknik Mesin (TM)', 
-                'Keperawatan'
-            ])->default('Teknologi Rekayasa Elektro-Medis (TREM)')->change();  
+                'Keperawatan',
+                'tidak ada prodi'
+            ])->default('tidak ada prodi');  
         $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

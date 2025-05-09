@@ -22,7 +22,7 @@
                     <h3 class="text-2xl font-bold text-gray-800">{{ Auth::user()->name }}</h3>
 
                     <div class="mt-2 text-gray-600 space-y-1">
-                        <div><span class="font-semibold text-red-600">NIM:</span> {{ Auth::user()->nim ?? '-' }}</div>
+                        <div><span class="font-semiboldtext-red-600">NIM:</span> {{ Auth::user()->NIM ?? '-' }}</div>
                         <div><span class="font-semibold text-red-600">Prodi:</span> {{ Auth::user()->prodi ?? '-' }}</div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             </a>
 
                             {{-- Kandidat --}}
-                            <a href="#" 
+                            <a href="{{ route('users.import.form') }}" 
                                class="bg-red-600/90 hover:bg-red-500 border border-red-700 rounded-xl p-4 transition-all duration-300 transform hover:scale-[1.02] flex flex-col items-center justify-center h-full group">
                                 <div class="bg-white/20 p-3 rounded-full mb-3 group-hover:bg-white/30 transition-colors">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +59,7 @@
                                               d="M5.121 17.804A2.25 2.25 0 007.197 19.5H16.8a2.25 2.25 0 002.076-1.696l1.61-6.438a1.5 1.5 0 00-1.45-1.866H6.964a1.5 1.5 0 00-1.45 1.866l1.607 6.438z" />
                                     </svg>
                                 </div>
-                                <span class="font-semibold text-center text-white/90 group-hover:text-white">Manajemen Kandidat</span>
+                                <span class="font-semibold text-center text-white/90 group-hover:text-white">Import Users</span>
                             </a>
 
                             {{-- Pengguna --}}
